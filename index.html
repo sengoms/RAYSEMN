@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAYSE - Rochester Area Youth for STEM Empowerment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #000000;
+            --accent: #FF6B6B;
+            --secondary: #4ECDC4;
+            --tertiary: #45B7D1;
+            --quaternary: #96CEB4;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #FAFAFA;
+            --border: #E5E5E5;
+            --shadow: rgba(0, 0, 0, 0.05);
+            --shadow-hover: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-primary);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--primary);
+            gap: 0.75rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8px;
+        }
+
+        .logo-images {
+            display: flex;
+            gap: 2px;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-images img {
+            height: 18px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            min-width: 200px;
+            box-shadow: 0 8px 32px var(--shadow-hover);
+            z-index: 1000;
+            margin-top: 1rem;
+            border: 1px solid var(--border);
+            padding: 0.5rem;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: var(--text-primary);
+            padding: 0.75rem 1rem;
+            display: block;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--bg-secondary);
+            color: var(--accent);
+        }
+
+        .dropdown-content a::after {
+            display: none;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--bg-primary);
+            padding: 160px 0 80px;
+            text-align: center;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Mission Section */
+        .mission {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .mission-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .mission-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .mission-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: left;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow-hover);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .mission-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+
+        .mission-visual img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+        }
+
+        /* Programs Section */
+        .programs {
+            padding: 80px 0;
+            background: var(--bg-primary);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary), var(--tertiary));
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .program-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .program-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px var(--shadow-hover);
+        }
+
+        .program-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .program-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .program-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .program-details {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .program-details h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .program-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .program-details li {
+            padding: 0.25rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .program-details li::before {
+            content: "→";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Call to Action Section */
+        .cta-section {
+            background: var(--primary);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .cta-section > p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .cta-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .cta-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .cta-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .cta-card p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Support Section */
+        .support {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+
+        .support-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .support-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .support-content p {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .support-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .support-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .support-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow-hover);
+        }
+
+        .support-item h3 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .support-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-primary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 20px var(--shadow);
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .dropdown-content {
+                position: static;
+                display: block;
+                box-shadow: none;
+                margin: 0;
+                border: none;
+                background: var(--bg-secondary);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .mission-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .mission-visual {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient text animation */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero h1 {
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <div class="logo-images">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='20' y='30' width='60' height='40' fill='white' rx='5'/%3E%3Ccircle cx='30' cy='75' r='8' fill='white'/%3E%3Ccircle cx='70' cy='75' r='8' fill='white'/%3E%3Crect x='35' y='20' width='30' height='15' fill='white' rx='3'/%3E%3Crect x='25' y='35' width='10' height='25' fill='white'/%3E%3Crect x='65' y='35' width='10' height='25' fill='white'/%3E%3Ccircle cx='50' cy='45' r='3' fill='%23ff4444'/%3E%3C/svg%3E" alt="FTC Robot" />
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='50' rx='30' ry='8' fill='white'/%3E%3Ccircle cx='25' cy='25' r='12' fill='white'/%3E%3Ccircle cx='75' cy='25' r='12' fill='white'/%3E%3Ccircle cx='25' cy='75' r='12' fill='white'/%3E%3Ccircle cx='75' cy='75' r='12' fill='white'/%3E%3Cline x1='25' y1='25' x2='37' y2='42' stroke='white' stroke-width='3'/%3E%3Cline x1='75' y1='25' x2='63' y2='42' stroke='white' stroke-width='3'/%3E%3Cline x1='25' y1='75' x2='37' y2='58' stroke='white' stroke-width='3'/%3E%3Cline x1='75' y1='75' x2='63' y2='58' stroke='white' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23ff4444'/%3E%3C/svg%3E" alt="Drone" />
+                    </div>
+                </div>
+                RAYSE
+            </a>
+            <ul class="nav-links">
+                <li><a href="#mission">Mission</a></li>
+                <li class="dropdown">
+                    <a href="#programs">Programs ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#fll-team">FLL Team</a>
+                        <a href="#ftc-team">FTC Team</a>
+                        <a href="#drone-racing">Drone Racing</a>
+                        <a href="#rc-planes">RC Planes</a>
+                        <a href="#mentorship">Mentorship</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#join">Join Us ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#student-signup">Student Signup</a>
+                        <a href="#parent-info">Parent Info</a>
+                        <a href="#mentor-apply">Become a Mentor</a>
+                    </div>
+                </li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>RAYSE</h1>
+                <p class="hero-subtitle">Rochester Area Youth for STEM Empowerment</p>
+                <p class="hero-description">
+                    Providing equitable STEM opportunities for ALL youth in a welcoming, inclusive environment. 
+                    Building confidence, skills, and futures through hands-on robotics, coding, and engineering.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#join" class="btn btn-primary">Join Our Teams</a>
+                    <a href="#support" class="btn btn-secondary">Support Our Mission</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mission" id="mission">
+        <div class="container">
+            <div class="mission-grid">
+                <div class="mission-content">
+                    <h2>Our Mission</h2>
+                    <p>
+                        RAYSE is dedicated to breaking down barriers in STEM education by creating inclusive, 
+                        supportive environments where every young person can thrive. We believe that diversity 
+                        drives innovation and that every student deserves access to high-quality STEM learning opportunities.
+                    </p>
+                    <p>
+                        Through our FIRST LEGO League (FLL), FIRST Tech Challenge (FTC), Drone Racing, and RC Planes programs, 
+                        we're building the next generation of problem-solvers, innovators, and leaders who will shape our future.
+                    </p>
+                    <div class="mission-stats">
+                        <div class="stat-item fade-in">
+                            <span class="stat-number">2</span>
+                            <span class="stat-label">Teams Launched</span>
+                        </div>
+                        <div class="stat-item fade-in">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Inclusion Focus</span>
+                        </div>
+                        <div class="stat-item fade-in">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label">Potential Unleashed</span>
+                        </div>
+                        <div class="stat-item fade-in">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Support Available</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mission-visual">
+                    <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="200" cy="200" r="180" stroke="#FF6B6B" stroke-width="2" stroke-dasharray="10 5" opacity="0.2"/>
+                        <circle cx="200" cy="200" r="140" stroke="#4ECDC4" stroke-width="2" stroke-dasharray="10 5" opacity="0.2"/>
+                        <circle cx="200" cy="200" r="100" stroke="#45B7D1" stroke-width="2" stroke-dasharray="10 5" opacity="0.2"/>
+                        <circle cx="200" cy="200" r="60" stroke="#96CEB4" stroke-width="2" stroke-dasharray="10 5" opacity="0.2"/>
+                        
+                        <!-- Robot icon -->
+                        <rect x="160" y="160" width="80" height="80" rx="10" fill="#000000"/>
+                        <circle cx="180" cy="180" r="8" fill="#FFFFFF"/>
+                        <circle cx="220" cy="180" r="8" fill="#FFFFFF"/>
+                        <rect x="185" y="205" width="30" height="10" rx="5" fill="#FFFFFF"/>
+                        
+                        <!-- Orbiting elements -->
+                        <circle cx="120" cy="120" r="15" fill="#FF6B6B">
+                            <animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="20s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="280" cy="120" r="15" fill="#4ECDC4">
+                            <animateTransform attributeName="transform" type="rotate" from="90 200 200" to="450 200 200" dur="20s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="280" cy="280" r="15" fill="#45B7D1">
+                            <animateTransform attributeName="transform" type="rotate" from="180 200 200" to="540 200 200" dur="20s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="120" cy="280" r="15" fill="#96CEB4">
+                            <animateTransform attributeName="transform" type="rotate" from="270 200 200" to="630 200 200" dur="20s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="programs" id="programs">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Programs</h2>
+                <p>
+                    Hands-on learning experiences designed to build confidence, creativity, and collaboration 
+                    while developing critical STEM skills for the future.
+                </p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card fade-in" id="fll-team">
+                    <span class="program-icon">🏗️</span>
+                    <h3>FIRST LEGO League (FLL)</h3>
+                    <p>
+                        Perfect for students ages 9-14, our FLL teams combine the excitement of sport with 
+                        science and technology. Teams research real-world problems and build LEGO robots 
+                        to solve challenges.
+                    </p>
+                    <div class="program-details">
+                        <h4>What Students Learn:</h4>
+                        <ul>
+                            <li>Engineering design process</li>
+                            <li>Programming and robotics</li>
+                            <li>Research and presentation skills</li>
+                            <li>Teamwork and communication</li>
+                            <li>Problem-solving strategies</li>
+                        </ul>
+                    </div>
+                    <a href="https://forms.google.com/create" target="_blank" class="btn btn-primary">Sign Up for FLL Team</a>
+                </div>
+
+                <div class="program-card fade-in" id="ftc-team">
+                    <span class="program-icon">⚡</span>
+                    <h3>FIRST Tech Challenge (FTC)</h3>
+                    <p>
+                        For students ages 12-18, FTC takes robotics to the next level with more complex 
+                        challenges, advanced programming, and real-world engineering applications.
+                    </p>
+                    <div class="program-details">
+                        <h4>What Students Learn:</h4>
+                        <ul>
+                            <li>Advanced programming (Java/Blocks)</li>
+                            <li>CAD design and 3D printing</li>
+                            <li>Project management</li>
+                            <li>Community outreach</li>
+                            <li>Business and marketing skills</li>
+                        </ul>
+                    </div>
+                    <a href="https://forms.google.com/create" target="_blank" class="btn btn-primary">Sign Up for FTC Team</a>
+                </div>
+
+                <div class="program-card fade-in" id="drone-racing">
+                    <span class="program-icon">🚁</span>
+                    <h3>Drone Racing Club</h3>
+                    <p>
+                        Experience the thrill of high-speed drone racing while learning cutting-edge technology. 
+                        Students ages 10-18 build, program, and pilot custom racing drones in competitive events.
+                    </p>
+                    <div class="program-details">
+                        <h4>What Students Learn:</h4>
+                        <ul>
+                            <li>Drone assembly and maintenance</li>
+                            <li>Flight control programming</li>
+                            <li>Aerodynamics and physics</li>
+                            <li>Real-time piloting skills</li>
+                            <li>Competition strategy</li>
+                        </ul>
+                    </div>
+                    <a href="https://forms.google.com/create" target="_blank" class="btn btn-primary">Sign Up for Drone Racing</a>
+                </div>
+
+                <div class="program-card fade-in" id="rc-planes">
+                    <span class="program-icon">✈️</span>
+                    <h3>RC Planes Club</h3>
+                    <p>
+                        Explore the fundamentals of aviation through radio-controlled aircraft. Students ages 8-18 
+                        learn aerodynamics, electronics, and flight principles while building and flying RC planes.
+                    </p>
+                    <div class="program-details">
+                        <h4>What Students Learn:</h4>
+                        <ul>
+                            <li>Aerodynamics and flight physics</li>
+                            <li>Radio control systems</li>
+                            <li>Aircraft construction techniques</li>
+                            <li>Flight planning and safety</li>
+                            <li>Weather impact on flight</li>
+                        </ul>
+                    </div>
+                    <a href="https://forms.google.com/create" target="_blank" class="btn btn-primary">Sign Up for RC Planes</a>
+                </div>
+
+                <div class="program-card fade-in" id="mentorship">
+                    <span class="program-icon">🌟</span>
+                    <h3>Mentorship & Support</h3>
+                    <p>
+                        Every student receives personalized guidance from experienced mentors who are 
+                        passionate about STEM education and youth development.
+                    </p>
+                    <div class="program-details">
+                        <h4>Support Includes:</h4>
+                        <ul>
+                            <li>One-on-one mentoring</li>
+                            <li>College and career guidance</li>
+                            <li>Scholarship opportunities</li>
+                            <li>Industry connections</li>
+                            <li>Leadership development</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:info@rayse-rochester.org?subject=Mentorship Interest" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="join">
+        <div class="container">
+            <h2>Ready to Join the RAYSE Family?</h2>
+            <p>
+                Whether you're a student ready to explore STEM, a parent looking for opportunities, 
+                or a community member who wants to make a difference - we want you!
+            </p>
+            <div class="cta-grid">
+                <div class="cta-card" id="student-signup">
+                    <h3>🎓 Students</h3>
+                    <p>
+                        Join our FLL, FTC, Drone Racing, or RC Planes teams and discover your potential. No experience necessary - 
+                        just curiosity and enthusiasm!
+                    </p>
+                    <div style="margin-top: 1rem;">
+                        <a href="https://forms.google.com/create" target="_blank" class="btn btn-outline" style="margin: 0.2rem; font-size: 0.85rem;">
+                            FLL Signup
+                        </a>
+                        <a href="https://forms.google.com/create" target="_blank" class="btn btn-outline" style="margin: 0.2rem; font-size: 0.85rem;">
+                            FTC Signup
+                        </a>
+                        <a href="https://forms.google.com/create" target="_blank" class="btn btn-outline" style="margin: 0.2rem; font-size: 0.85rem;">
+                            Drone Racing
+                        </a>
+                        <a href="https://forms.google.com/create" target="_blank" class="btn btn-outline" style="margin: 0.2rem; font-size: 0.85rem;">
+                            RC Planes
+                        </a>
+                    </div>
+                </div>
+                <div class="cta-card" id="parent-info">
+                    <h3>👨‍👩‍👧‍👦 Parents</h3>
+                    <p>
+                        Support your child's STEM journey while connecting with other families who share 
+                        your commitment to education and equity.
+                    </p>
+                    <a href="mailto:info@rayse-rochester.org?subject=Parent Interest" class="btn btn-outline">
+                        Get Involved
+                    </a>
+                </div>
+                <div class="cta-card" id="mentor-apply">
+                    <h3>🤝 Mentors</h3>
+                    <p>
+                        Share your expertise and passion for STEM while making a lasting impact on young 
+                        lives in our community.
+                    </p>
+                    <a href="mailto:info@rayse-rochester.org?subject=Mentor Interest" class="btn btn-outline">
+                        Become a Mentor
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="support" id="support">
+        <div class="container">
+            <div class="support-content">
+                <h2>Help Us Secure Meeting Space</h2>
+                <p>
+                    RAYSE is actively advocating for dedicated club meeting spaces from Rochester Public Schools, 
+                    Olmsted County, and other community resources. Your support can help us provide consistent, 
+                    accessible venues for our teams to learn, build, and grow.
+                </p>
+                <div class="support-items">
+                    <div class="support-item">
+                        <h3>📧 Advocacy Support</h3>
+                        <p>
+                            Help us reach out to local officials and organizations to secure meeting spaces 
+                            and resources for our teams.
+                        </p>
+                    </div>
+                    <div class="support-item">
+                        <h3>🏢 Space Donations</h3>
+                        <p>
+                            Know of available meeting spaces? We need rooms for team meetings, robot building, 
+                            and programming sessions.
+                        </p>
+                    </div>
+                    <div class="support-item">
+                        <h3>💰 Financial Support</h3>
+                        <p>
+                            Help us cover team registration fees, equipment costs, and competition expenses 
+                            to keep programs free for all students.
+                        </p>
+                    </div>
+                    <div class="support-item">
+                        <h3>🗣️ Spread the Word</h3>
+                        <p>
+                            Share our mission with your network. Every conversation helps us reach more 
+                            youth and potential supporters.
+                        </p>
+                    </div>
+                </div>
+                <a href="mailto:info@rayse-rochester.org?subject=Support RAYSE" class="btn btn-primary">
+                    Contact Us to Help
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>RAYSE</h3>
+                    <p>Rochester Area Youth for STEM Empowerment</p>
+                    <p>Empowering all youth through equitable STEM education and opportunities.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Programs</h3>
+                    <a href="#fll-team">FIRST LEGO League (FLL)</a>
+                    <a href="#ftc-team">FIRST Tech Challenge (FTC)</a>
+                    <a href="#drone-racing">Drone Racing Club</a>
+                    <a href="#rc-planes">RC Planes Club</a>
+                    <a href="#mentorship">Mentorship Program</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Get Involved</h3>
+                    <a href="#join">Join Our Teams</a>
+                    <a href="#join">Become a Mentor</a>
+                    <a href="#support">Support Our Mission</a>
+                    <a href="#support">Donate Space/Resources</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <a href="mailto:info@rayse-rochester.org">info@rayse-rochester.org</a>
+                    <p>Rochester, MN</p>
+                    <p>Serving all of Olmsted County</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 RAYSE - Rochester Area Youth for STEM Empowerment. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Close dropdown menus when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+                    dropdown.style.display = 'none';
+                });
+            }
+        });
+
+        // Keep dropdown open when hovering
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            let timeout;
+            
+            dropdown.addEventListener('mouseenter', function() {
+                clearTimeout(timeout);
+                this.querySelector('.dropdown-content').style.display = 'block';
+            });
+            
+            dropdown.addEventListener('mouseleave', function() {
+                const dropdownContent = this.querySelector('.dropdown-content');
+                timeout = setTimeout(() => {
+                    dropdownContent.style.display = 'none';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
